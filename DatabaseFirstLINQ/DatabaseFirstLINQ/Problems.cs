@@ -17,7 +17,7 @@ namespace DatabaseFirstLINQ
         {
             //ProblemOne();
             //ProblemTwo();
-            //ProblemThree();
+            ProblemThree();
             //ProblemFour();
             //ProblemFive();
             //ProblemSix();
@@ -41,6 +41,9 @@ namespace DatabaseFirstLINQ
         private void ProblemOne()
         {
             // Write a LINQ query that returns the number of users in the Users table.
+            var users = _context.Users;
+            int count = users.Count();
+            Console.WriteLine(count);
             // HINT: .ToList().Count
 
         }
@@ -60,6 +63,7 @@ namespace DatabaseFirstLINQ
         private void ProblemThree()
         {
             // Write a LINQ query that gets each product where the products price is greater than $150.
+
             // Then print the name and price of each product from the above query to the console.
 
         }
