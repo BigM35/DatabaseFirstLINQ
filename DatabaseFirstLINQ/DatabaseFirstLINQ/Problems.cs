@@ -42,9 +42,10 @@ namespace DatabaseFirstLINQ
         {
             // Write a LINQ query that returns the number of users in the Users table.
             var users = _context.Users;
+            // HINT: .ToList().Count
             int count = users.Count();
             Console.WriteLine(count);
-            // HINT: .ToList().Count
+           
 
         }
 
@@ -68,10 +69,11 @@ namespace DatabaseFirstLINQ
             {
                 if (product.Price > 150)
                 {
+                    // Then print the name and price of each product from the above query to the console.
                     Console.WriteLine(product.Name);
                 }
             }
-            // Then print the name and price of each product from the above query to the console.
+            
 
         }
 
@@ -83,17 +85,30 @@ namespace DatabaseFirstLINQ
             {
                 if (product.Name.ToLower().Contains("s"))
                 {
+                    // Then print the name of each product from the above query to the console.
                     Console.WriteLine(product.Name);
                 }
             }
-            // Then print the name of each product from the above query to the console.
+            
 
         }
 
         private void ProblemFive()
         {
             // Write a LINQ query that gets all of the users who registered BEFORE 2016
+            DateTime specifiedData = DateTime.Parse("1/1/2016");
+            var users = _context.Users;
+            foreach (User user in users)
+            {
+                if (user.RegistrationDate < specifiedData)
+                {
+                    Console.WriteLine(user.Email);
+                    Console.WriteLine(user.RegistrationDate);
+                }
+            }
+        
             // Then print each user's email and registration date to the console.
+            
 
         }
 
