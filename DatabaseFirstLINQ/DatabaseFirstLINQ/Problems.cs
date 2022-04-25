@@ -23,9 +23,9 @@ namespace DatabaseFirstLINQ
             //ProblemSix();
             //ProblemSeven();
             //ProblemEight();
-            ProblemNine();
+            //ProblemNine();
             //ProblemTen();
-            //ProblemEleven();
+            ProblemEleven();
             //ProblemTwelve();
             //ProblemThirteen();
             //ProblemFourteen();
@@ -172,8 +172,18 @@ namespace DatabaseFirstLINQ
         private void ProblemTen()
         {
             // Write a LINQ query that retreives all of the products in the shopping cart of users who have the role of "Employee".
+            var employees = _context.UserRoles
+                .Include(ur => ur.User)
+                .Include(ur => ur.Role)
+                .Where(u => u.Role.RoleName == "Employee");
+                Console.WriteLine(employees);
+            var cartProduct = _context.ShoppingCarts
+                .Include(sc => sc.Product)
+                .Include(sc => sc.User);
+                
+             
             // Then print the user's email as well as the product's name, price, and quantity to the console.
-
+            Console.WriteLine(cartProduct);
         }
 
         // <><><><><><><><> CUD (Create, Update, Delete) Actions <><><><><><><><><>
@@ -195,7 +205,14 @@ namespace DatabaseFirstLINQ
         private void ProblemTwelve()
         {
             // Create a new Product object and add that product to the Products table using LINQ.
-
+            Product newProduct = new Product()
+            {
+                Name = "IBM",
+                Description = "Computer",
+                Price = 500,
+            };
+            _context.Products.Add(newProduct);
+            _context.SaveChanges();
         }
 
         private void ProblemThirteen()
