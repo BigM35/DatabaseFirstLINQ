@@ -24,7 +24,7 @@ namespace DatabaseFirstLINQ
             //ProblemSeven();
             //ProblemEight();
             //ProblemNine();
-            //ProblemTen();
+            ProblemTen();
             //ProblemEleven();
             //ProblemTwelve();
             //ProblemThirteen();
@@ -33,7 +33,7 @@ namespace DatabaseFirstLINQ
             //ProblemSixteen();
             //ProblemSeventeen();
             //ProblemEighteen();
-            ProblemNineteen();
+            //ProblemNineteen();
             //ProblemTwenty();
         }
 
@@ -175,13 +175,18 @@ namespace DatabaseFirstLINQ
             var employees = _context.UserRoles
                 .Include(ur => ur.User)
                 .Include(ur => ur.Role)
-                .Where(u => u.Role.RoleName == "Employee");
-                Console.WriteLine(employees);
+                .Where(u => u.Role.RoleName == "Employee")
+                .Select(ur => ur.UserId);
+            Console.WriteLine(employees);
             var cartProduct = _context.ShoppingCarts
                 .Include(sc => sc.Product)
-                .Include(sc => sc.User);
-                
-             
+                .Include(sc => sc.User)
+                .Where(sc => employees.Contains(sc.UserId));
+            foreach(var product in cartProduct)
+            {
+                Console.WriteLine($"User Email: {product.User.Email} Product: {product.Product.Name} Price: {product.Product.Price} Quantity: {product.Quantity}");
+            }
+
             // Then print the user's email as well as the product's name, price, and quantity to the console.
             Console.WriteLine(cartProduct);
         }
@@ -307,13 +312,11 @@ namespace DatabaseFirstLINQ
         private void ProblemTwenty()
         {
             // Delete the user with the email "oda@gmail.com" from the Users table using LINQ.
-            var userRole = _context.UserRoles.Where(u => u.User.Email == "oda@gmail.com");
-            foreach (UserRole userRoleRelationship in userRole)
-            {
-                _context.UserRoles.Remove(userRoleRelationship);
-            }
             var user = _context.Users.Where(u => u.Email == "oda@gmail.com");
-            _context.Users.Remove(user);
+            foreach (User info in user)
+            {
+                _context.Users.Remove(info);
+            }
             _context.SaveChanges();
 
         }
