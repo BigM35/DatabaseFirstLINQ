@@ -308,13 +308,12 @@ namespace DatabaseFirstLINQ
         {
             // Delete the user with the email "oda@gmail.com" from the Users table using LINQ.
             var userRole = _context.UserRoles.Where(u => u.User.Email == "oda@gmail.com");
-            foreach (User userRelationship in userRole)
+            foreach (UserRole userRoleRelationship in userRole)
             {
-                _context.Users.Remove(userRelationship);
+                _context.UserRoles.Remove(userRoleRelationship);
             }
             var user = _context.Users.Where(u => u.Email == "oda@gmail.com");
             _context.Users.Remove(user);
-            
             _context.SaveChanges();
 
         }
