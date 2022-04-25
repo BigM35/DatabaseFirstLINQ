@@ -20,9 +20,9 @@ namespace DatabaseFirstLINQ
             //ProblemThree();
             //ProblemFour();
             //ProblemFive();
-            ProblemSix();
+            //ProblemSix();
             //ProblemSeven();
-            //ProblemEight();
+            ProblemEight();
             //ProblemNine();
             //ProblemTen();
             //ProblemEleven();
@@ -132,7 +132,10 @@ namespace DatabaseFirstLINQ
             // Write a LINQ query that retreives all of the users who are assigned to the role of Customer.
 
             // Then print the users email and role name to the console.
-            var customerUsers = _context.UserRoles.Include(ur => ur.Role).Include(ur => ur.User).Where(ur => ur.Role.RoleName == "Customer");
+            var customerUsers = _context.UserRoles
+                .Include(ur => ur.Role)
+                .Include(ur => ur.User)
+                .Where(r => r.Role.RoleName == "Customer");
             foreach (UserRole userRole in customerUsers)
             {
                 Console.WriteLine($"Email: {userRole.User.Email} Role: {userRole.Role.RoleName}");
@@ -142,8 +145,15 @@ namespace DatabaseFirstLINQ
         private void ProblemEight()
         {
             // Write a LINQ query that retreives all of the products in the shopping cart of the user who has the email "afton@gmail.com".
-            // Then print the product's name, price, and quantity to the console.
-
+            var cartProduct = _context.ShoppingCarts
+                .Include(sc => sc.Product)
+                .Include(sc => sc.User)
+                .Where(u => u.User.Email == "afton@gmail.com");
+                // Then print the product's name, price, and quantity to the console.
+            foreach(ShoppingCart cart in cartProduct)
+            {
+                Console.WriteLine(cart.Product.Name);
+            }
         }
 
         private void ProblemNine()
