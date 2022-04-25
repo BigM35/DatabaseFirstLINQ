@@ -19,8 +19,8 @@ namespace DatabaseFirstLINQ
             //ProblemTwo();
             //ProblemThree();
             //ProblemFour();
-            ProblemFive();
-            //ProblemSix();
+            //ProblemFive();
+            ProblemSix();
             //ProblemSeven();
             //ProblemEight();
             //ProblemNine();
@@ -102,28 +102,35 @@ namespace DatabaseFirstLINQ
             {
                 if (user.RegistrationDate < specifiedData)
                 {
+                    // Then print each user's email and registration date to the console.
                     Console.WriteLine(user.Email);
                     Console.WriteLine(user.RegistrationDate);
                 }
             }
-        
-            // Then print each user's email and registration date to the console.
-            
-
         }
 
         private void ProblemSix()
         {
             // Write a LINQ query that gets all of the users who registered AFTER 2016 and BEFORE 2018
-            // Then print each user's email and registration date to the console.
-
+            DateTime beforeDate = DateTime.Parse("1/1/2018");
+            DateTime afterDate = DateTime.Parse("12/31/2016");
+            var users = _context.Users;
+            foreach (User user in users)
+            {
+                if (user.RegistrationDate > afterDate && user.RegistrationDate < beforeDate)
+                {
+                    // Then print each user's email and registration date to the console.
+                    Console.WriteLine(user.Email);
+                    Console.WriteLine(user.RegistrationDate);
+                }
+            }    
         }
-
         // <><><><><><><><> R Actions (Read) with Foreign Keys <><><><><><><><><>
 
         private void ProblemSeven()
         {
             // Write a LINQ query that retreives all of the users who are assigned to the role of Customer.
+
             // Then print the users email and role name to the console.
             var customerUsers = _context.UserRoles.Include(ur => ur.Role).Include(ur => ur.User).Where(ur => ur.Role.RoleName == "Customer");
             foreach (UserRole userRole in customerUsers)
