@@ -25,9 +25,9 @@ namespace DatabaseFirstLINQ
             //ProblemEight();
             //ProblemNine();
             //ProblemTen();
-            ProblemEleven();
+            //ProblemEleven();
             //ProblemTwelve();
-            //ProblemThirteen();
+            ProblemThirteen();
             //ProblemFourteen();
             //ProblemFifteen();
             //ProblemSixteen();
@@ -209,7 +209,7 @@ namespace DatabaseFirstLINQ
             {
                 Name = "IBM",
                 Description = "Computer",
-                Price = 500,
+                Price = 500
             };
             _context.Products.Add(newProduct);
             _context.SaveChanges();
