@@ -24,7 +24,7 @@ namespace DatabaseFirstLINQ
             //ProblemSeven();
             //ProblemEight();
             //ProblemNine();
-            ProblemTen();
+            //ProblemTen();
             //ProblemEleven();
             //ProblemTwelve();
             //ProblemThirteen();
@@ -35,6 +35,7 @@ namespace DatabaseFirstLINQ
             //ProblemEighteen();
             //ProblemNineteen();
             //ProblemTwenty();
+            BonusOne();
         }
 
         // <><><><><><><><> R Actions (Read) <><><><><><><><><>
@@ -312,11 +313,21 @@ namespace DatabaseFirstLINQ
         private void ProblemTwenty()
         {
             // Delete the user with the email "oda@gmail.com" from the Users table using LINQ.
-            var user = _context.Users.Where(u => u.Email == "oda@gmail.com");
-            foreach (User info in user)
+            var shoppingCartProducts = _context.ShoppingCarts.Where(sc => sc.User.Email == "oda@gmail.com");
+            foreach (ShoppingCart userProductRelationship in shoppingCartProducts)
             {
-                _context.Users.Remove(info);
+                _context.ShoppingCarts.Remove(userProductRelationship);
             }
+            _context.SaveChanges();
+
+
+            var userRole = _context.UserRoles.Where(ur => ur.User.Email == "oda@gmail.com").SingleOrDefault();
+            _context.UserRoles.Remove(userRole);
+            _context.SaveChanges();
+
+
+            var user = _context.Users.Where(u => u.Email == "oda@gmail.com").SingleOrDefault();
+            _context.Users.Remove(user);
             _context.SaveChanges();
 
         }
@@ -326,8 +337,22 @@ namespace DatabaseFirstLINQ
         private void BonusOne()
         {
             // Prompt the user to enter in an email and password through the console.
+            Console.WriteLine("Enter email: ");
+            string email = Console.ReadLine();
+            Console.WriteLine("Enter password: ");
+            string password = Console.ReadLine();
             // Take the email and password and check if the there is a person that matches that combination.
+            var userEmail = _context.Users.Where(u => u.Email == email).SingleOrDefault();
+            var userPassword = _context.Users.Where(u => u.Password == password).SingleOrDefault();
             // Print "Signed In!" to the console if they exists and the values match otherwise print "Invalid Email or Password.".
+            if (userEmail != null && userPassword != null)
+            {
+                Console.WriteLine("Signed In!");
+            }
+            else {
+                Console.WriteLine("Invalid Email or Password");
+            };
+         
         }
 
         private void BonusTwo()
